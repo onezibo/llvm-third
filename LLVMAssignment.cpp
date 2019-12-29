@@ -132,7 +132,7 @@ struct FuncPtrPass : public ModulePass {
            globalEnvPerFunc != oldHeap || dirtyEnvPerFunc != oldDirty;
   }
 
-  FuncPtrPass::Env FuncPtrPass::meet(BasicBlock *bb) {
+  Env meet(BasicBlock *bb) {
     Env in;
     for (auto *p : predecessors(bb)) {
       for (auto pair : envs[p]) {
@@ -293,7 +293,7 @@ struct FuncPtrPass : public ModulePass {
     return updated;
   }
 
-  bool FuncPtrPass::visitStore(StoreInst *storeInst) {
+  bool visitStore(StoreInst *storeInst) {
     bool updated = false;
     Value *src = storeInst->getOperand(0);
     Value *dst = storeInst->getOperand(1);
